@@ -1,0 +1,122 @@
+#include<iostream>
+using namespace std;
+
+class Transaction
+{
+private:
+	string details, listOfDish, date;
+public:
+	void add(string details , string listOfDish, string date)
+	{
+		this->details = details;
+		this->listOfDish = listOfDish;
+		this->date = date;
+	}
+	void update(string details, string listOfDish, string date)
+	{
+		this->details = details;
+		this->listOfDish = listOfDish;
+		this->date = date;
+	}
+};
+class Customer
+{
+private:
+	string address, reservation, details;
+	// aggregation 
+	Transaction transaction;
+public:
+	void add(string address, string reservation, string details, Transaction transaction )
+	{
+		this->address = address;
+		this->reservation = reservation;
+		this->details = details;
+		this->transaction = transaction;
+	}
+	void update()
+	{
+		
+	}
+};
+
+// Inheritence
+class Crews : public Customer
+{
+private:
+	string name, age, contactnum, username, password;
+public:
+	void create(string name, string age, string contactnum, string username, string password)
+	{
+		this->name = name;
+		this->age = age;
+		this->contactnum = contactnum;
+		this->username = username;
+		this->password = password;
+		
+	}
+	void update(){}
+};
+class AirlineTicket{
+private:
+	string number, details, price;
+public:
+	// composition
+	Transaction trans;
+	void calculate()
+	{
+		trans.update("Flight at sharp 9","Curry,Shashlik","01/01/2025");
+	}
+	void update(string number, string details, string price){
+		 
+		this->number = number;
+		this->details = details;
+		this->price = price;
+	}
+};
+class Payment
+{
+private:
+	int amount ;
+	string date;
+public:
+	void calculate(int amount, string date)
+	{
+		this->amount = amount;
+		this->date = date;
+	}
+};
+class Reservation
+{
+private:
+	string details, ticketNumber, date;
+public:
+	// composition
+	AirlineTicket airline;
+	Payment payment;
+	void update(){
+	
+		payment.calculate(120000, "01/01/2025");
+		airline.update("0340505","Direct Flight to dubai","1300000");
+
+	}
+};
+
+int main()
+{
+	Transaction transaction;
+	transaction.add("Flight to Dubai","Rice,custard","23/12/2024");
+
+
+	Crews crew;
+	crew.add("Islamabad","Morning","4 days stay", transaction);
+	crew.create("shuja","18","123456789","pogo","123");
+
+	AirlineTicket air;
+	air.calculate();
+
+	Reservation reservation;
+	reservation.airline.calculate();
+	reservation.update();
+	
+
+}
